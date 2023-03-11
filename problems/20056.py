@@ -22,25 +22,22 @@ while K > 0:
         nr = (cr + dy[d] * s) % N 
         nc = (cc + dx[d] * s) % N 
         space[nr][nc].append([m, s, d])
-
     for cr in range(N):
         for cc in range(N):
             # 한 칸에 두개 이상의 파이어볼
             if len(space[cr][cc]) > 1:
-                tmp_m, tmp_s, tmp_d, cnt = 0, 0, [], 0
-                odd, even = 0, 0
+                tmp_m, tmp_s, tmp_d, cnt = 0, 0, 0, 0
                 while space[cr][cc]:
                     fireball = space[cr][cc].popleft()
                     tmp_m += fireball[0]
                     tmp_s += fireball[1]
+                    tmp_d += fireball[2] % 2
                     cnt += 1
-                    if fireball[2] % 2 == 0: even += 1
-                    else: odd += 1
                 tmp_m = tmp_m//5
                 # 질량이 0이면 파괴
                 if tmp_m == 0: continue
                 tmp_s = tmp_s//cnt
-                if odd == cnt or even == cnt: tmp_d = [0, 2, 4, 6] 
+                if tmp_d == cnt or tmp_d == 0: tmp_d = [0, 2, 4, 6] 
                 else: tmp_d = [1, 3, 5, 7]
 
                 for i in range(4): 
