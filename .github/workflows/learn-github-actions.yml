@@ -1,13 +1,13 @@
-name: learn-github-actions
-run-name: ${{ github.actor }} is learning GitHub Actions
+name: 티스토리에 작성 시작
+run-name: 티스토리에 작성 중...
 on: [push]
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-      - run: npm install -g bats
-      - run: bats -v
+      - name: check out repo
+        uses: actions/checkout@v3
+      - name: poting on tistory...
+        shell: bash
+        run: curl -X POST https://www.tistory.com/apis/post/write?
+          access_token={access-token}
