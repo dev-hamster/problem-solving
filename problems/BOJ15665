@@ -1,0 +1,67 @@
+# N과 M(11)
+
+## 문제
+- N개의 자연수 중에서 M개를 고른 수열
+- 같은 수를 여러 번 골라도 된다.
+- 중복되는 수열은 제외
+- 사전순 출력
+
+## 접근
+중복되는 수열은 제외해야하므로 입력받는 N개의 자연수를 set으로 받자
+
+사전순으로 출력해야 하므로 정렬을 해주자
+
+
+## 코드
+```java
+import java.io.*;
+import java.util.*;
+
+public class Main {
+  static int N, M;
+  static Integer[] selected;
+  static StringBuilder sb = new StringBuilder();
+  static int[] number;
+  static Set < Integer[] > ans;
+
+  public static void main(String[] args) throws Exception {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    StringTokenizer st = null;
+
+    ans = new HashSet < Integer[] > ();
+    st = new StringTokenizer(br.readLine());
+    N = Integer.parseInt(st.nextToken());
+    M = Integer.parseInt(st.nextToken());
+    selected = new Integer[M];
+    Set < Integer > set = new HashSet < > ();
+    st = new StringTokenizer(br.readLine());
+    for (int i = 0; i < N; i += 1) set.add(Integer.parseInt(st.nextToken()));
+    number = new int[set.size()];
+    int idx = 0;
+    for (int s: set) {
+      number[idx] = s;
+      idx += 1;
+    }
+    Arrays.sort(number);
+
+    backtracking(0);
+    System.out.println(sb);
+  }
+
+  private static void backtracking(int cnt) {
+    if (cnt == M) {
+      for (int x: selected) {
+        sb.append(x).append(" ");
+      }
+      sb.append("\n");
+      return;
+    }
+
+    for (int i = 0; i < number.length; i += 1) {
+      int num = number[i];
+      selected[cnt] = num;
+      backtracking(cnt + 1);
+    }
+  }
+}
+```
